@@ -2,10 +2,14 @@ version: "3"
 
 services:
   gateway-service:
+    image: aminnairi/gateway-service:0.1.0
+    ports:
+      - 3000:3000
     deploy:
       replicas: 5
 
   posts-service:
+    image: aminnairi/posts-service:0.1.0
     environment:
       DATABASE_NAME: &postsDatabaseName posts
       DATABASE_USER: &postsDatabaseUser posts
@@ -14,6 +18,7 @@ services:
       replicas: 5
 
   posts-database:
+    image: aminnairi/posts-database:0.1.0
     environment:
       POSTGRES_DB: *postsDatabaseName
       POSTGRES_USER: *postsDatabaseUser
