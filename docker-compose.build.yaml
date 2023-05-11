@@ -1,0 +1,17 @@
+services:
+  gateway-service:
+    build:
+      context: services/gateway
+      dockerfile: Dockerfile
+      target: production
+
+  posts-service:
+    build:
+      context: services/posts
+      dockerfile: Dockerfile
+      target: production
+
+  posts-database:
+    build:
+      context: services/database
+      dockerfile: Dockerfile

@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  gateway-service:
+    deploy:
+      replicas: 5
+
+  posts-service:
+    environment:
+      DATABASE_NAME: &postsDatabaseName posts
+      DATABASE_USER: &postsDatabaseUser posts
+      DATABASE_PASSWORD: &postsDatabasePassword posts
+    deploy:
+      replicas: 5
+
+  posts-database:
+    environment:
+      POSTGRES_DB: *postsDatabaseName
+      POSTGRES_USER: *postsDatabaseUser
+      POSTGRES_PASSWORD: *postsDatabasePassword
+    deploy:
+      replicas: 1
