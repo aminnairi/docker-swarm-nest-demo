@@ -1,4 +1,4 @@
-import { IsString, IsUUID, Length } from "class-validator";
+import { IsString, Length } from "class-validator";
 
 export class CreatePostRequest {
   @IsString()
@@ -7,10 +7,4 @@ export class CreatePostRequest {
 
   @IsString()
   public body: string;
-}
-
-export class DeletePostRequest {
-  @IsString()
-  @IsUUID()
-  public id: string;
 }
