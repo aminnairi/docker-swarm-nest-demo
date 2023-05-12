@@ -1,24 +1,26 @@
-import { Controller, ValidationPipe } from '@nestjs/common';
-import { EventPattern, Payload } from "@nestjs/microservices";
-import { CreatePostRequest, DeletePostRequest } from './posts.request';
+import { Controller, Delete, Get, Param, ParseUUIDPipe, Post, ValidationPipe } from '@nestjs/common';
+import { Payload } from "@nestjs/microservices";
+import { CreatePostRequest } from './posts.request';
 import { PostsService } from './posts.service';
 
 @Controller()
 export class PostsController {
   constructor(public readonly postsService: PostsService) { }
 
-  @EventPattern("getPosts")
-  public getPosts() {
-    return this.postsService.getPosts();
+  @Get()
+  public async getPosts() {
+    const posts = await this.postsService.getPosts();
+
+    return posts;
   }
 
-  @EventPattern("createPost")
+  @Post()
   public createPost(@Payload(ValidationPipe) createPostRequest: CreatePostRequest) {
     return this.postsService.createPost(createPostRequest);
   }
 
-  @EventPattern("deletePost")
-  public deletePost(@Payload(ValidationPipe) deletePostRequest: DeletePostRequest) {
-    return this.postsService.deletePost(deletePostRequest);
+  @Delete(":id")
+  public deletePost(@Param("id", ParseUUIDPipe) id: string) {
+    return this.postsService.deletePost(id);
   }
 }
