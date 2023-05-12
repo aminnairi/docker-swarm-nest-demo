@@ -44,7 +44,8 @@ docker stack deploy -c docker-compose.stack.yaml app
 
 ## Endpoints
 
-Method | Path | Description
----|---|---
-`GET` | `/posts` | Get all posts
-`POST` | `/posts` | Create a post
+Method | Path | Data | Description
+---|---|---|---
+`GET` | `/posts` | None | Get all posts
+`POST` | `/posts` | {"title": "title", "body": "body"} |  Create a post
+`DELETE` | `/posts/:id` | None  |  Create a post
