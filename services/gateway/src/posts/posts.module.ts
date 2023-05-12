@@ -1,20 +1,11 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { PostsController } from './posts.controller';
-import { ClientsModule, Transport } from "@nestjs/microservices";
+import { PostsService } from './posts.service';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: "POSTS_SERVICE",
-        transport: Transport.TCP,
-        options: {
-          host: "posts-service",
-          port: 3001
-        }
-      }
-    ])
-  ],
-  controllers: [PostsController]
+  imports: [HttpModule],
+  controllers: [PostsController],
+  providers: [PostsService]
 })
 export class PostsModule { }
